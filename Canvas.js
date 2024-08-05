@@ -187,18 +187,18 @@ export const useRealtime = (canvasRef) => {
 //Toolbar.js
 import React from 'react';
 
-const Toolbar = () => {
+const Toolbar = ({ setTool }) => {
   return (
     <div className="toolbar">
-      <button>Pen</button>
-      <button>Highlighter</button>
-      <button>Eraser</button>
-      <button>Shapes</button>
-      <button>Text</button>
-      <button>Sticky Note</button>
-      <button>Image Upload</button>
-      <button>Undo</button>
-      <button>Redo</button>
+      <button onClick={() => setTool('pen')}>Pen</button>
+      <button onClick={() => setTool('highlighter')}>Highlighter</button>
+      <button onClick={() => setTool('eraser')}>Eraser</button>
+      <button onClick={() => setTool('shape')}>Shapes</button>
+      <button onClick={() => setTool('text')}>Text</button>
+      <button onClick={() => setTool('stickyNote')}>Sticky Note</button>
+      <button onClick={() => setTool('imageUpload')}>Image Upload</button>
+      <button onClick={() => setTool('undo')}>Undo</button>
+      <button onClick={() => setTool('redo')}>Redo</button>
     </div>
   );
 };
