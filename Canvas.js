@@ -10,7 +10,7 @@ import PageNavigator from './PageNavigator';
 
 const Canvas = () => {
   const canvasRef = useRef(null);
-  const { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool } = useCanvas(canvasRef);
+  const { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool, setShape } = useCanvas(canvasRef);
   const { syncCanvas } = useRealtime(canvasRef);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Canvas = () => {
   return (
     <div className="canvas-container">
       <Toolbar setTool={setTool} />
-      <ShapeTool />
+      <ShapeTool setShape={setShape} />
       <TextTool />
       <StickyNote />
       <ImageUploader />
@@ -42,6 +42,7 @@ const Canvas = () => {
 };
 
 export default Canvas;
+
 
 
 //useCanvas.js
