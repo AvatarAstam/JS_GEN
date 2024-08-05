@@ -132,6 +132,19 @@ export const useCanvas = (canvasRef) => {
     setHistoryStep(newCanvasHistory.length - 1);
   };
 
+  const addText = (text, fontSize, fontColor) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    context.font = `${fontSize}px Arial`;
+    context.fillStyle = fontColor;
+    const textX = canvas.width / 2;
+    const textY = canvas.height / 2;
+    context.fillText(text, textX, textY);
+    const newCanvasHistory = [...canvasHistory.slice(0, historyStep + 1), canvas.toDataURL()];
+    setCanvasHistory(newCanvasHistory);
+    setHistoryStep(newCanvasHistory.length - 1);
+  };
+
   const clearCanvas = (context) => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   };
@@ -162,8 +175,9 @@ export const useCanvas = (canvasRef) => {
     };
   };
 
-  return { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool, setShape };
+  return { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool, setShape, addText };
 };
+      
                                                                      
 
 //useRealtime.js
