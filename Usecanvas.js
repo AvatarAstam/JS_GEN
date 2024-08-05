@@ -9,6 +9,8 @@ export const useCanvas = (canvasRef) => {
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const [stickyNotes, setStickyNotes] = useState([]);
   const [images, setImages] = useState([]);
+  const [pages, setPages] = useState([{ id: Date.now(), content: null }]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -170,9 +172,27 @@ export const useCanvas = (canvasRef) => {
     };
   };
 
+  const addPage = () => {
+    setPages([...pages, { id: Date.now(), content: null }]);
+  };
+
+  const deletePage = (index) => {
+    if (pages.length === 1) return;
+    const newPages = pages.filter((_, i) => i !== index);
+    setPages(newPages);
+    if (index <= currentPage) {
+      setCurrentPage((prevPage) => (prevPage === 0 ? 0 : prevPage - 1));
+    }
+  };
+
+  const switchPage = (index) => {
+    setCurrentPage(index);
+  };
+
   return { 
     startDrawing, draw, stopDrawing, clearCanvas, undo, redo, 
-    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent, addImage, updateImagePosition 
+    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent, addImage, updateImagePosition,
+    pages, currentPage, addPage, deletePage, switchPage
   };
 };
-                               
+                  
