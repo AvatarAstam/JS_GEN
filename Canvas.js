@@ -344,11 +344,16 @@ export default ImageUploader;
 //PageNavigator.js
 import React from 'react';
 
-const PageNavigator = () => {
+const PageNavigator = ({ pages, currentPage, addPage, deletePage, switchPage }) => {
   return (
     <div className="page-navigator">
-      <button>Previous</button>
-      <button>Next</button>
+      <button onClick={addPage}>Add Page</button>
+      {pages.map((page, index) => (
+        <div key={page.id} className={`page-item ${currentPage === index ? 'active' : ''}`}>
+          <span onClick={() => switchPage(index)}>Page {index + 1}</span>
+          <button onClick={() => deletePage(index)}>Delete</button>
+        </div>
+      ))}
     </div>
   );
 };
