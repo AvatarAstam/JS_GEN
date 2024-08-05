@@ -159,18 +159,24 @@ export default Toolbar;
 //ShapeTool.js
 import React from 'react';
 
-const ShapeTool = () => {
+const Toolbar = ({ setTool }) => {
   return (
-    <div className="shape-tool">
-      <button>Rectangle</button>
-      <button>Circle</button>
-      <button>Line</button>
-      <button>Arrow</button>
+    <div className="toolbar">
+      <button onClick={() => setTool('pen')}>Pen</button>
+      <button onClick={() => setTool('highlighter')}>Highlighter</button>
+      <button onClick={() => setTool('eraser')}>Eraser</button>
+      <button onClick={() => setTool('shape')}>Shapes</button>
+      <button onClick={() => setTool('text')}>Text</button>
+      <button onClick={() => setTool('stickyNote')}>Sticky Note</button>
+      <button onClick={() => setTool('imageUpload')}>Image Upload</button>
+      <button onClick={() => setTool('undo')}>Undo</button>
+      <button onClick={() => setTool('redo')}>Redo</button>
     </div>
   );
 };
 
-export default ShapeTool;
+export default Toolbar;
+
 
 //TextTool.js
 import React from 'react';
