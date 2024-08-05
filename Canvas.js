@@ -51,6 +51,7 @@ export const useCanvas = (canvasRef) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [canvasHistory, setCanvasHistory] = useState([]);
   const [historyStep, setHistoryStep] = useState(0);
+  const [tool, setTool] = useState('pen');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -71,6 +72,17 @@ export const useCanvas = (canvasRef) => {
     if (!isDrawing) return;
     const { offsetX, offsetY } = nativeEvent;
     const context = canvasRef.current.getContext('2d');
+
+    if (tool === 'pen') {
+      context.strokeStyle = 'black';
+      context.lineWidth = 2;
+    } else if (tool === 'highlighter') {
+      context.strokeStyle = 'yellow';
+      context.lineWidth = 10;
+    } else if (tool === 'eraser') {
+      context.strokeStyle = 'white';
+      context.lineWidth = 20;
+    }
     context.lineTo(offsetX, offsetY);
     context.stroke();
   };
@@ -114,8 +126,9 @@ export const useCanvas = (canvasRef) => {
     };
   };
 
-  return { startDrawing, draw, stopDrawing, clearCanvas, undo, redo };
+  return { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool };
 };
+    
 
 //useRealtime.js
 import { useEffect } from 'react';
