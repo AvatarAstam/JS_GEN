@@ -224,17 +224,44 @@ export default ShapeTool;
 
 
 //TextTool.js
-import React from 'react';
+import React, { useState } from 'react';
 
-const TextTool = () => {
+const TextTool = ({ addText }) => {
+  const [text, setText] = useState('');
+  const [fontSize, setFontSize] = useState(20);
+  const [fontColor, setFontColor] = useState('#000000');
+
+  const handleAddText = () => {
+    addText(text, fontSize, fontColor);
+    setText('');
+  };
+
   return (
     <div className="text-tool">
-      <button>Add Text</button>
+      <input 
+        type="text" 
+        placeholder="Enter text" 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+      />
+      <input 
+        type="number" 
+        placeholder="Font size" 
+        value={fontSize} 
+        onChange={(e) => setFontSize(Number(e.target.value))} 
+      />
+      <input 
+        type="color" 
+        value={fontColor} 
+        onChange={(e) => setFontColor(e.target.value)} 
+      />
+      <button onClick={handleAddText}>Add Text</button>
     </div>
   );
 };
 
 export default TextTool;
+
 
 //Sticky Notes.js
 import React from 'react';
