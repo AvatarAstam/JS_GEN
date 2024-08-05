@@ -8,6 +8,7 @@ export const useCanvas = (canvasRef) => {
   const [shape, setShape] = useState(null);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const [stickyNotes, setStickyNotes] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -122,6 +123,23 @@ export const useCanvas = (canvasRef) => {
     setStickyNotes(updatedNotes);
   };
 
+  const addImage = (imageSrc) => {
+    const newImage = {
+      id: Date.now(),
+      src: imageSrc,
+      x: 50,
+      y: 50,
+    };
+    setImages([...images, newImage]);
+  };
+
+  const updateImagePosition = (id, x, y) => {
+    const updatedImages = images.map(image => 
+      image.id === id ? { ...image, x, y } : image
+    );
+    setImages(updatedImages);
+  };
+
   const clearCanvas = (context) => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   };
@@ -154,7 +172,7 @@ export const useCanvas = (canvasRef) => {
 
   return { 
     startDrawing, draw, stopDrawing, clearCanvas, undo, redo, 
-    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent 
+    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent, addImage, updateImagePosition 
   };
 };
-    
+                               
