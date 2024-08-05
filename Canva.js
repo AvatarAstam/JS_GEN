@@ -12,7 +12,7 @@ const Canvas = () => {
   const canvasRef = useRef(null);
   const { 
     startDrawing, draw, stopDrawing, clearCanvas, undo, redo, 
-    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent 
+    setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent, addImage, updateImagePosition 
   } = useCanvas(canvasRef);
   const { syncCanvas } = useRealtime(canvasRef);
 
@@ -29,7 +29,7 @@ const Canvas = () => {
       <ShapeTool setShape={setShape} />
       <TextTool addText={addText} />
       <StickyNote addStickyNote={addStickyNote} />
-      <ImageUploader />
+      <ImageUploader addImage={addImage} />
       <PageNavigator />
       <canvas
         ref={canvasRef}
@@ -45,4 +45,3 @@ const Canvas = () => {
 };
 
 export default Canvas;
-      
