@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { useCanvas } from '../../hooks/useCanvas';
 import { useRealtime } from '../../hooks/useRealtime';
@@ -11,7 +10,7 @@ import PageNavigator from './PageNavigator';
 
 const Canvas = () => {
   const canvasRef = useRef(null);
-  const { startDrawing, draw, stopDrawing, clearCanvas, undo, redo } = useCanvas(canvasRef);
+  const { startDrawing, draw, stopDrawing, clearCanvas, undo, redo, setTool } = useCanvas(canvasRef);
   const { syncCanvas } = useRealtime(canvasRef);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const Canvas = () => {
 
   return (
     <div className="canvas-container">
-      <Toolbar />
+      <Toolbar setTool={setTool} />
       <ShapeTool />
       <TextTool />
       <StickyNote />
@@ -43,6 +42,7 @@ const Canvas = () => {
 };
 
 export default Canvas;
+
 
 //useCanvas.js
 import { useState, useEffect } from 'react';
