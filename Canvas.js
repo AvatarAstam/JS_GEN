@@ -135,4 +135,93 @@ export const useRealtime = (canvasRef) => {
   return { syncCanvas };
 };
                    
-  
+//Toolbar.js
+import React from 'react';
+
+const Toolbar = () => {
+  return (
+    <div className="toolbar">
+      <button>Pen</button>
+      <button>Highlighter</button>
+      <button>Eraser</button>
+      <button>Shapes</button>
+      <button>Text</button>
+      <button>Sticky Note</button>
+      <button>Image Upload</button>
+      <button>Undo</button>
+      <button>Redo</button>
+    </div>
+  );
+};
+
+export default Toolbar;
+
+//ShapeTool.js
+import React from 'react';
+
+const ShapeTool = () => {
+  return (
+    <div className="shape-tool">
+      <button>Rectangle</button>
+      <button>Circle</button>
+      <button>Line</button>
+      <button>Arrow</button>
+    </div>
+  );
+};
+
+export default ShapeTool;
+
+//TextTool.js
+import React from 'react';
+
+const TextTool = () => {
+  return (
+    <div className="text-tool">
+      <button>Add Text</button>
+    </div>
+  );
+};
+
+export default TextTool;
+
+//Sticky Notes.js
+import React from 'react';
+
+const StickyNote = () => {
+  return (
+    <div className="sticky-note">
+      <button>Add Sticky Note</button>
+    </div>
+  );
+};
+
+export default StickyNote;
+
+//imageuploder.js
+import React from 'react';
+
+const ImageUploader = () => {
+  return (
+    <div className="image-uploader">
+      <input type="file" accept="image/*" />
+    </div>
+  );
+};
+
+export default ImageUploader;
+
+//PageNavigator.js
+import React from 'react';
+
+const PageNavigator = () => {
+  return (
+    <div className="page-navigator">
+      <button>Previous</button>
+      <button>Next</button>
+    </div>
+  );
+};
+
+export default PageNavigator;
+
