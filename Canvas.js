@@ -279,17 +279,30 @@ export default TextTool;
 
 
 //Sticky Notes.js
-import React from 'react';
+import React, { useState } from 'react';
 
-const StickyNote = () => {
+const StickyNote = ({ addStickyNote }) => {
+  const [noteContent, setNoteContent] = useState('');
+
+  const handleAddStickyNote = () => {
+    addStickyNote(noteContent);
+    setNoteContent('');
+  };
+
   return (
-    <div className="sticky-note">
-      <button>Add Sticky Note</button>
+    <div className="sticky-note-tool">
+      <textarea 
+        placeholder="Enter note" 
+        value={noteContent} 
+        onChange={(e) => setNoteContent(e.target.value)} 
+      />
+      <button onClick={handleAddStickyNote}>Add Note</button>
     </div>
   );
 };
 
 export default StickyNote;
+
 
 //imageuploder.js
 import React from 'react';
