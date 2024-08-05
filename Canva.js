@@ -9,21 +9,25 @@ import ImageUploader from './ImageUploader';
 import PageNavigator from './PageNavigator';
 import StickyNoteItem from './StickyNoteItem';
 
-const Canvas = () => {
+const Canvas = ({ boardId }) => {
   const canvasRef = useRef(null);
   const { 
     startDrawing, draw, stopDrawing, clearCanvas, undo, redo, 
     setTool, setShape, addText, addStickyNote, updateStickyNotePosition, updateStickyNoteContent, addImage, updateImagePosition,
     pages, currentPage, addPage, deletePage, switchPage
   } = useCanvas(canvasRef);
-  const { syncCanvas } = useRealtime(canvasRef);
+  const { syncCanvas } = useRealtime(canvasRef, boardId);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     clearCanvas(context);
-    syncCanvas(context);
-  }, [clearCanvas, syncCanvas, currentPage]);
+  }, [clearCanvas, currentPage]);
+
+  const handleMouseUp = () => {
+    stopDrawing();
+    syncCanvas(canvasRef.current.getContext('2d'));
+  };
 
   return (
     <div className="canvas-container">
@@ -45,7 +49,7 @@ const Canvas = () => {
         height={600}
         onMouseDown={startDrawing}
         onMouseMove={draw}
-        onMouseUp={stopDrawing}
+        onMouseUp={handleMouseUp}
         onMouseLeave={stopDrawing}
       ></canvas>
       {stickyNotes.map(note => (
@@ -72,3 +76,4 @@ const Canvas = () => {
 };
 
 export default Canvas;
+    
