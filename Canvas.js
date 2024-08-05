@@ -305,17 +305,41 @@ export default StickyNote;
 
 
 //imageuploder.js
-import React from 'react';
+import React, { useState } from 'react';
 
-const ImageUploader = () => {
+const ImageUploader = ({ addImage }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAddImage = () => {
+    if (selectedImage) {
+      addImage(selectedImage);
+      setSelectedImage(null);
+    }
+  };
+
   return (
     <div className="image-uploader">
-      <input type="file" accept="image/*" />
+      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <button onClick={handleAddImage} disabled={!selectedImage}>
+        Add Image
+      </button>
     </div>
   );
 };
 
 export default ImageUploader;
+
 
 //PageNavigator.js
 import React from 'react';
