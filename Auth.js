@@ -124,4 +124,62 @@ const Signup = () => {
 };
 
 export default Signup;
+
+// components/ProtectedRoute.js
+import { useRouter } from 'next/router';
+import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user, router]);
+
+  if (!user) {
+    return null; // Or a loading spinner
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;
+  
+
+// pages/_app.js
+import { AuthProvider } from '../context/AuthContext';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
+}
+
+export default MyApp;
+
+// pages/board/[boardId].js
+import { useRouter } from 'next/router';
+import ProtectedRoute from '../../components/ProtectedRoute';
+import Canvas from '../../components/Canvas';
+
+const BoardPage = () => {
+  const router = useRouter();
+  const { boardId } = router.query;
+
+  return (
+    <ProtectedRoute>
+      <Canvas boardId={boardId} />
+    </ProtectedRoute>
+  );
+};
+
+export default BoardPage;
+            
             
